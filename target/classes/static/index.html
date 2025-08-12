@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4f46e5" />
+    <meta
+      name="description"
+      content="Timesheet application for tracking work hours"
+    />
+    <link rel="apple-touch-icon" href="/logo_white.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <title>Timesheet App</title>
+    <style>
+      /* Hide all SVG elements that might be causing rendering issues */
+      svg:not([class]) {
+        display: none !important;
+      }
+      
+      /* Global SVG constraints to fix large icons */
+      svg {
+        max-width: 24px !important;
+        max-height: 24px !important;
+        width: auto !important;
+        height: auto !important;
+      }
+      
+      /* Fix for calendar and time picker icons */
+      input[type="date"]::-webkit-calendar-picker-indicator,
+      input[type="time"]::-webkit-calendar-picker-indicator {
+        width: 16px !important;
+        height: 16px !important;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-00e3b89f.js"></script>
+    <link rel="stylesheet" href="/assets/index-63185be2.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    
+  </body>
+</html> 
