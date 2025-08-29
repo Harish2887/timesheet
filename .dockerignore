@@ -1,0 +1,73 @@
+# Ignore unnecessary files for Docker build
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backend specific
+backend/target
+backend/.mvn
+backend/mvnw
+backend/mvnw.cmd
+backend/*.iml
+backend/.idea
+backend/.settings
+backend/.project
+backend/.classpath
+
+# Frontend specific
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/.eslintcache
+frontend/coverage
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Temporary files
+tmp
+temp
+
+# Database files
+*.sqlite
+*.db
+
+# Uploads (will be handled by volumes)
+uploads
+
+# Documentation
+docs
+README.md
+LICENSE
