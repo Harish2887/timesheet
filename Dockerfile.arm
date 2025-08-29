@@ -1,5 +1,8 @@
+# ARM-compatible Dockerfile for Raspberry Pi
 # Multi-stage build for the timesheet application
-FROM node:20.10.0-alpine AS frontend-build
+
+# Frontend build stage
+FROM node:20-alpine AS frontend-build
 
 # Set working directory for frontend
 WORKDIR /app/frontend
@@ -16,15 +19,17 @@ COPY frontend/ ./
 # Build frontend
 RUN npm run build
 
-# Backend build stage
-FROM maven:3.9.6-eclipse-temurin-17 AS backend-build
+# Backend build stage - using official Eclipse Temurin with Maven
+FROM eclipse-temurin:17-jdk AS backend-build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy backend pom.xml and maven settings
+# Copy backend pom.xml
 COPY backend/pom.xml ./backend/
-COPY backend/maven-settings.xml ./backend/
 
 # Copy frontend build from previous stage
 COPY --from=frontend-build /app/frontend/build ./frontend/build
@@ -37,7 +42,7 @@ RUN mvn dependency:go-offline -B
 COPY backend/src ./src
 
 # Build the application (skip frontend build since we already have it)
-RUN mvn clean package -DskipTests -Dfrontend.skip=true
+RUN mvn clean package -DskipTests
 
 # Runtime stage
 FROM eclipse-temurin:17-jre
@@ -69,9 +74,9 @@ EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8080/api/auth/health || exit 1
+    CMD curl -f http://localhost:8080/actuator/health || exit 1
 
-# Set JVM options for container environment
+# Set JVM options for container environment (optimized for Pi)
 ENV JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -XX:+UseContainerSupport"
 
 # Run the application
